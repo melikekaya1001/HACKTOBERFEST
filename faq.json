@@ -1,0 +1,50 @@
+[
+  {
+    "soru": "HackthoBon3Vfest nedir?",
+    "cevap": "Hacktoberfest, her yıl Ekim ayında düzenlenen, açık kaynak kodlu yazılımlara katkıda bulunmayı teşvik eden küresel bir etkinliktir. Temelini, geliştirici ve tasarımcıların kısa bir süre içinde belirli bir tema etrafında yoğunlaşarak yeni projeler ürettiği hackathon kültüründen alır. Hacktoberfest, bu maraton ruhunu tüm aya yayarak öğrenmeyi, işbirliğini ve topluluk dayanışmasını destekler. 2026 yılı Hacktoberfest etkinliği; DigitalOcean (geliştiriciler için bulut çözümleri sunan şirket), DEV Community (yazılım geliştiricileri için çevrimiçi platform) ve MLH - Major League Hacking (milyonlarca geliştiriciyi bir araya getiren dünyanın en büyük hackathon topluluğu) ortaklığında düzenlenmektedir. Bu yılın ana odak noktası açık kaynak kodlu yapay zeka ve açık ağırlıklı modeller (open-weight models) olarak belirlenmiştir. Elazığ'da düzenlenecek olan HacktoB3Vfest ise bu dev organizasyon çatısı altında Türkiye’de gerçekleştirilen tek hack day etkinliği olma özelliğini taşımaktadır."
+  },
+  {
+    "soru": "Etkinliğe kimler katılabilir?",
+    "cevap": "18 yaşını doldurmuş ve başvuru formunu eksiksiz bir şekilde tamamlayan tüm üniversite öğrencileri etkinliğe başvurabilir. Kontenjan sınırlı olduğundan, katılımcılar başvurular arasından yapılacak değerlendirme ile belirlenecektir."
+  },
+  {
+    "soru": "Gelirken yanımda ne getirmeliyim?",
+    "cevap": "Etkinlikte ihtiyaç duyacağınız temel donanım kendi dizüstü bilgisayarınızdır. Bunun yanı sıra adaptör, mouse, kulaklık gibi donanımları ve kişisel ihtiyaçlarınızı (ilaç vb.) yanınızda getirmeniz tavsiye edilir."
+  },
+  {
+    "soru": "Yarışma görevlerini yaparken yapay zeka araçlarını kullanabilir miyim?",
+    "cevap": "Evet, yarışma görevlerini tamamlarken yapay zeka araçlarından destek almak tamamen serbesttir."
+  },
+  {
+    "soru": "Bireysel mi yoksa takım olarak mı yarışılacak?",
+    "cevap": "Etkinliğe bireysel olarak veya 2 kişilik takımlar halinde katılabilirsiniz. Takımınızı etkinlikten önce kendi tanıdıklarınızla kurabileceğiniz gibi, etkinlik alanında görevlilerimizin yardımıyla diğer katılımcılarla eşleşerek de yeni bir takım oluşturabilirsiniz."
+  },
+  {
+    "soru": "Katılım sertifikası verilecek mi?",
+    "cevap": "Evet. Katılımcılara hem Hacktoberfest organizasyonu hem de etkinliği düzenleyen öğrenci toplulukları tarafından sertifika verilecektir. Ayrıca etkinlik boyunca sürpriz hediyeler ve ikramlar da sizleri bekliyor olacak."
+  },
+  {
+    "soru": "Yarışma görevleri neler olacak?",
+    "cevap": "Etkinliğin heyecanını korumak adına yarışma görevleri önceden açıklanmayacak, etkinlik günü ve saatinde katılımcılarla paylaşılacaktır."
+  },
+  {
+    "soru": "Hangi teknolojiler ve konular üzerine yarışılacak?",
+    "cevap": "Yarışmanın ana başlıkları Gemma 4 ve GitHub Copilot olacaktır:Gemma 4: Google tarafından geliştirilen; açık ağırlıklı, hafif ve yüksek kapasiteli bir yapay zeka modelidir. Geliştiricilere, kendi uygulamalarında güçlü yapay zeka yeteneklerini kullanma imkanı sunar. GitHub Copilot: GitHub ve OpenAI işbirliğiyle geliştirilen yapay zeka destekli kodlama asistanıdır. Kod yazarken sunduğu gerçek zamanlı önerilerle geliştirme sürecini önemli ölçüde hızlandırır."
+  },
+  {
+    "soru": "Kazananlar nasıl belirlenecek?",
+    "cevap": "Yarışmanın kazananları, etkinlik günü alanında uzman jüri üyelerinin yapacağı değerlendirmeler sonucunda belirlenecektir."
+  },
+  {
+    "soru": "Etkinlik ne zaman ve nerede gerçekleşecek?",
+    "cevap": "Etkinliğin, 17 Ekim 2026 Cumartesi saat 19.00'da başlayıp 18 Ekim 2026 Pazar saat 06.00'da sona ermesi planlanmaktadır. Mekan olarak Fırat Üniversitesi Ar-Ge Merkezi kullanılacaktır. Olası bir program veya mekan değişikliğinde tüm katılımcılar organizatörler tarafından önceden bilgilendirilecektir."
+  },
+  {
+    "soru": "Dereceye girenlere ödül verilecek mi?",
+    "cevap": "Evet, yarışma sonunda dereceye giren takımlara çeşitli ödüller verilecektir."
+  },
+  {
+    "soru": "Etkinliğe nasıl başvurabilirim?",
+    "cevap": "Başvurunuzu iki şekilde yapabilirsiniz: Sosyal medya hesaplarımızda paylaşılan başvuru bağlantısını kullanabilir veya doğrudan Hacktoberfest resmi web sitesi üzerinden Elazığ konumundaki Hack Day etkinliğini bularak kaydınızı tamamlayabilirsiniz."
+  }
+]

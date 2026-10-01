@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackthoB3Vfest – Sıkça Sorulan Sorular</title>
+
+  <!-- ===== STİLLER ===== -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;600&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background-color: #000004; /* color1: neredeyse siyah */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 56px;
+    }
+
+    /* Başlık */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      letter-spacing: 2px;
+      color: #e0b840; /* color3: altın sarısı */
+    }
+
+    header p {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      color: #55a49e; /* color5: teal */
+      margin-top: 8px;
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      letter-spacing: 1px;
+    }
+
+    /* 2 sütun grid – mobilde tek sütun */
+    #faq-container {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      #faq-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Kart */
+    .faq-item {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(85, 138, 163, 0.4); /* color4 */
+      box-shadow: 0 2px 14px rgba(0, 0, 4, 0.6);
+      transition: box-shadow 0.25s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 4px 22px rgba(85, 164, 158, 0.35); /* color5 */
+    }
+
+    /* Soru butonu – color4 (#558aa3) mavi */
+    .faq-btn {
+      width: 100%;
+      background-color: #558aa3;
+      color: #000004; /* koyu metin – yüksek kontrast */
+      border: none;
+      padding: 16px 18px;
+      text-align: left;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .faq-btn:hover,
+    .faq-btn:focus {
+      background-color: #55a49e; /* color5: teal hover */
+      outline: none;
+    }
+
+    /* Açık durumdaki buton – altın sarısı */
+    .faq-btn[aria-expanded="true"] {
+      background-color: #e0b840;
+      color: #000004;
+    }
+
+    /* Ok simgesi */
+    .faq-btn .arrow {
+      font-size: 0.9rem;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-btn[aria-expanded="true"] .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Cevap paneli – color2 (#0c2836) koyu lacivert, açık */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s ease;
+      background-color: #0c2836; /* color2 */
+      color: #d6eaf2; /* açık mavi-beyaz – rahat okunur */
+      font-size: 0.9rem;
+      line-height: 1.7;
+      padding: 0 18px;
+    }
+
+    .faq-answer.open {
+      max-height: 600px;
+      padding: 14px 18px;
+    }
+
+    /* Alt bilgi */
+    footer {
+      margin-top: 52px;
+      color: rgba(85, 138, 163, 0.6); /* color4 soluk */
+      font-size: 0.78rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BAŞLIK ===== -->
+  <header>
+    <h1>HackthoB3Vfest</h1>
+    <p>Sıkça Sorulan Sorular</p>
+  </header>
+
+  <!-- ===== SSS LİSTESİ – JS tarafından doldurulur ===== -->
+  <main id="faq-container" aria-label="Sıkça Sorulan Sorular"></main>
+
+  <!-- ===== ALT BİLGİ ===== -->
+  <footer>
+    <p>© 2026 HackthoB3Vfest. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    /**
+     * faq.json dosyasını çeker ve SSS listesini dinamik olarak oluşturur.
+     * Her soru bir buton, her cevap açılır/kapanır bir panel şeklinde gösterilir.
+     */
+    async function loadFAQ() {
+      const container = document.getElementById('faq-container');
+
+      let items;
+
+      try {
+        // faq.json'ı aynı dizinden yükle
+        const response = await fetch('faq.json');
+        if (!response.ok) throw new Error('Dosya yüklenemedi');
+        items = await response.json();
+      } catch (err) {
+        // Fetch başarısız olursa (örn. dosya sistemi kısıtlaması) yerleşik veriyi kullan
+        console.warn('faq.json fetch edilemedi, yerleşik veri kullanılıyor:', err.message);
+        items = FALLBACK_DATA;
+      }
+
+      // Her soru-cevap çifti için HTML öğeleri oluştur
+      items.forEach(function(item, index) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('faq-item');
+
+        // Buton (soru)
+        const btn = document.createElement('button');
+        btn.classList.add('faq-btn');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', 'answer-' + index);
+        btn.innerHTML =
+          '<span>' + escapeHTML(item.soru) + '</span>' +
+          '<span class="arrow" aria-hidden="true">▼</span>';
+
+        // Cevap paneli
+        const answer = document.createElement('div');
+        answer.classList.add('faq-answer');
+        answer.setAttribute('id', 'answer-' + index);
+        answer.setAttribute('role', 'region');
+        answer.textContent = item.cevap;
+
+        // Tıklama: aç/kapat
+        btn.addEventListener('click', function() {
+          const isOpen = answer.classList.contains('open');
+
+          // Seçimlik: tüm diğer panelleri kapatmak istersen aşağıdaki satırı aç
+          // closeAll();
+
+          answer.classList.toggle('open', !isOpen);
+          btn.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        wrapper.appendChild(btn);
+        wrapper.appendChild(answer);
+        container.appendChild(wrapper);
+      });
+    }
+
+    /** Tüm açık cevap panellerini kapatır (accordion davranışı için) */
+    function closeAll() {
+      document.querySelectorAll('.faq-answer.open').forEach(function(panel) {
+        panel.classList.remove('open');
+        panel.previousElementSibling.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    /** XSS'e karşı basit HTML kaçırma */
+    function escapeHTML(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /**
+     * fetch() dosya sistemi üzerinde çalışmadığında kullanılacak
+     * yedek veri (faq.json ile aynı içerik).
+     */
+    var FALLBACK_DATA = [
+     {
+    "soru": "HackthoBon3Vfest nedir?",
+    "cevap": "Hacktoberfest, her yıl Ekim ayında düzenlenen, açık kaynak kodlu yazılımlara katkıda bulunmayı teşvik eden küresel bir etkinliktir. Temelini, geliştirici ve tasarımcıların kısa bir süre içinde belirli bir tema etrafında yoğunlaşarak yeni projeler ürettiği hackathon kültüründen alır. Hacktoberfest, bu maraton ruhunu tüm aya yayarak öğrenmeyi, işbirliğini ve topluluk dayanışmasını destekler. 2026 yılı Hacktoberfest etkinliği; DigitalOcean (geliştiriciler için bulut çözümleri sunan şirket), DEV Community (yazılım geliştiricileri için çevrimiçi platform) ve MLH - Major League Hacking (milyonlarca geliştiriciyi bir araya getiren dünyanın en büyük hackathon topluluğu) ortaklığında düzenlenmektedir. Bu yılın ana odak noktası açık kaynak kodlu yapay zeka ve açık ağırlıklı modeller (open-weight models) olarak belirlenmiştir. Elazığ'da düzenlenecek olan HacktoB3Vfest ise bu dev organizasyon çatısı altında Türkiye’de gerçekleştirilen tek hack day etkinliği olma özelliğini taşımaktadır."
+  },
+  {
+    "soru": "Etkinliğe kimler katılabilir?",
+    "cevap": "18 yaşını doldurmuş ve başvuru formunu eksiksiz bir şekilde tamamlayan tüm üniversite öğrencileri etkinliğe başvurabilir. Kontenjan sınırlı olduğundan, katılımcılar başvurular arasından yapılacak değerlendirme ile belirlenecektir."
+  },
+  {
+    "soru": "Gelirken yanımda ne getirmeliyim?",
+    "cevap": "Etkinlikte ihtiyaç duyacağınız temel donanım kendi dizüstü bilgisayarınızdır. Bunun yanı sıra adaptör, mouse, kulaklık gibi donanımları ve kişisel ihtiyaçlarınızı (ilaç vb.) yanınızda getirmeniz tavsiye edilir."
+  },
+  {
+    "soru": "Yarışma görevlerini yaparken yapay zeka araçlarını kullanabilir miyim?",
+    "cevap": "Evet, yarışma görevlerini tamamlarken yapay zeka araçlarından destek almak tamamen serbesttir."
+  },
+  {
+    "soru": "Bireysel mi yoksa takım olarak mı yarışılacak?",
+    "cevap": "Etkinliğe bireysel olarak veya 2 kişilik takımlar halinde katılabilirsiniz. Takımınızı etkinlikten önce kendi tanıdıklarınızla kurabileceğiniz gibi, etkinlik alanında görevlilerimizin yardımıyla diğer katılımcılarla eşleşerek de yeni bir takım oluşturabilirsiniz."
+  },
+  {
+    "soru": "Katılım sertifikası verilecek mi?",
+    "cevap": "Evet. Katılımcılara hem Hacktoberfest organizasyonu hem de etkinliği düzenleyen öğrenci toplulukları tarafından sertifika verilecektir. Ayrıca etkinlik boyunca sürpriz hediyeler ve ikramlar da sizleri bekliyor olacak."
+  },
+  {
+    "soru": "Yarışma görevleri neler olacak?",
+    "cevap": "Etkinliğin heyecanını korumak adına yarışma görevleri önceden açıklanmayacak, etkinlik günü ve saatinde katılımcılarla paylaşılacaktır."
+  },
+  {
+    "soru": "Hangi teknolojiler ve konular üzerine yarışılacak?",
+    "cevap": "Yarışmanın ana başlıkları Gemma 4 ve GitHub Copilot olacaktır:Gemma 4: Google tarafından geliştirilen; açık ağırlıklı, hafif ve yüksek kapasiteli bir yapay zeka modelidir. Geliştiricilere, kendi uygulamalarında güçlü yapay zeka yeteneklerini kullanma imkanı sunar. GitHub Copilot: GitHub ve OpenAI işbirliğiyle geliştirilen yapay zeka destekli kodlama asistanıdır. Kod yazarken sunduğu gerçek zamanlı önerilerle geliştirme sürecini önemli ölçüde hızlandırır."
+  },
+  {
+    "soru": "Kazananlar nasıl belirlenecek?",
+    "cevap": "Yarışmanın kazananları, etkinlik günü alanında uzman jüri üyelerinin yapacağı değerlendirmeler sonucunda belirlenecektir."
+  },
+  {
+    "soru": "Etkinlik ne zaman ve nerede gerçekleşecek?",
+    "cevap": "Etkinliğin, 17 Ekim 2026 Cumartesi saat 19.00'da başlayıp 18 Ekim 2026 Pazar saat 06.00'da sona ermesi planlanmaktadır. Mekan olarak Fırat Üniversitesi Ar-Ge Merkezi kullanılacaktır. Olası bir program veya mekan değişikliğinde tüm katılımcılar organizatörler tarafından önceden bilgilendirilecektir."
+  },
+  {
+    "soru": "Dereceye girenlere ödül verilecek mi?",
+    "cevap": "Evet, yarışma sonunda dereceye giren takımlara çeşitli ödüller verilecektir."
+  },
+  {
+    "soru": "Etkinliğe nasıl başvurabilirim?",
+    "cevap": "Başvurunuzu iki şekilde yapabilirsiniz: Sosyal medya hesaplarımızda paylaşılan başvuru bağlantısını kullanabilir veya doğrudan Hacktoberfest resmi web sitesi üzerinden Elazığ konumundaki Hack Day etkinliğini bularak kaydınızı tamamlayabilirsiniz."
+  } 
+    ];
+
+    // Sayfa yüklenince SSS'yi başlat
+    loadFAQ();
+  </script>
+
+</body>
+</html>
