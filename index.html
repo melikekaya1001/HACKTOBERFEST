@@ -17,88 +17,99 @@
 
     body {
       font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background-color: #000004; /* color1: neredeyse siyah */
+      background-color: #000004;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 36px 16px 56px;
+      padding: 24px 12px 48px; /* mobilde kenar boşluğu azalt */
     }
 
     /* Başlık */
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
+      width: 100%;
+      padding: 0 8px;
     }
 
     header h1 {
       font-family: 'Nunito', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.8rem, 6vw, 3rem);
-      letter-spacing: 2px;
-      color: #e0b840; /* color3: altın sarısı */
+      font-size: clamp(1.5rem, 7vw, 3rem); /* mobilde daha küçük başlar */
+      letter-spacing: 1px;
+      color: #e0b840;
+      word-break: break-word;
     }
 
     header p {
       font-family: 'Nunito', sans-serif;
       font-weight: 700;
-      color: #55a49e; /* color5: teal */
+      color: #55a49e;
       margin-top: 8px;
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
-      letter-spacing: 1px;
+      font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+      letter-spacing: 0.5px;
     }
 
-    /* 2 sütun grid – mobilde tek sütun */
+    /* 2 sütun grid – tablet ve üstü */
     #faq-container {
       width: 100%;
       max-width: 1100px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 12px;
       align-items: start;
     }
 
-    @media (max-width: 640px) {
+    /* 768px altı: tek sütun */
+    @media (max-width: 768px) {
       #faq-container {
         grid-template-columns: 1fr;
+        gap: 10px;
       }
     }
 
     /* Kart */
     .faq-item {
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 1.5px solid rgba(85, 138, 163, 0.4); /* color4 */
+      border: 1.5px solid rgba(85, 138, 163, 0.4);
       box-shadow: 0 2px 14px rgba(0, 0, 4, 0.6);
       transition: box-shadow 0.25s ease;
     }
 
     .faq-item:hover {
-      box-shadow: 0 4px 22px rgba(85, 164, 158, 0.35); /* color5 */
+      box-shadow: 0 4px 22px rgba(85, 164, 158, 0.35);
     }
 
-    /* Soru butonu – color4 (#558aa3) mavi */
+    /* Soru butonu */
     .faq-btn {
       width: 100%;
       background-color: #558aa3;
-      color: #000004; /* koyu metin – yüksek kontrast */
+      color: #000004;
       border: none;
-      padding: 16px 18px;
+      padding: 14px 16px;
       text-align: left;
       font-family: 'Nunito', sans-serif;
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem); /* mobilde küçülür */
       font-weight: 800;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 8px;
+      align-items: flex-start; /* uzun metinde ok yukarıda dursun */
+      gap: 10px;
       transition: background-color 0.2s ease, color 0.2s ease;
+      line-height: 1.4;
+      -webkit-tap-highlight-color: transparent; /* mobil dokunma efektini kapat */
+    }
+
+    .faq-btn span:first-child {
+      flex: 1; /* metin alanı genişlesin, ok sıkışmasın */
     }
 
     .faq-btn:hover,
     .faq-btn:focus {
-      background-color: #55a49e; /* color5: teal hover */
+      background-color: #55a49e;
       outline: none;
     }
 
@@ -110,38 +121,40 @@
 
     /* Ok simgesi */
     .faq-btn .arrow {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: transform 0.25s ease;
       flex-shrink: 0;
+      margin-top: 2px; /* flex-start ile hizala */
     }
 
     .faq-btn[aria-expanded="true"] .arrow {
       transform: rotate(180deg);
     }
 
-    /* Cevap paneli – color2 (#0c2836) koyu lacivert, açık */
+    /* Cevap paneli */
     .faq-answer {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease, padding 0.2s ease;
-      background-color: #0c2836; /* color2 */
-      color: #d6eaf2; /* açık mavi-beyaz – rahat okunur */
-      font-size: 0.9rem;
-      line-height: 1.7;
-      padding: 0 18px;
+      background-color: #0c2836;
+      color: #d6eaf2;
+      font-size: clamp(0.82rem, 2.4vw, 0.9rem);
+      line-height: 1.75;
+      padding: 0 16px;
     }
 
     .faq-answer.open {
-      max-height: 600px;
-      padding: 14px 18px;
+      max-height: 800px; /* uzun cevaplar için artırıldı */
+      padding: 14px 16px;
     }
 
     /* Alt bilgi */
     footer {
-      margin-top: 52px;
-      color: rgba(85, 138, 163, 0.6); /* color4 soluk */
-      font-size: 0.78rem;
+      margin-top: 40px;
+      color: rgba(85, 138, 163, 0.6);
+      font-size: 0.75rem;
       text-align: center;
+      padding: 0 12px;
     }
   </style>
 </head>
